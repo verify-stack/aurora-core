@@ -1,5 +1,6 @@
 # aurora-core
 ![version: v2025.615](https://img.shields.io/badge/version-v2025.615-blue?style=flat)
+<br>
 A incomplete barebones framework for replicating legacy CoreScripts and stamper tools on normal ROBLOX games.
 
 ## Get Started
