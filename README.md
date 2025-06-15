@@ -24,7 +24,7 @@ Refer to [CAS.md](/CAS.md).
 ## Stamper Tools/InsertService
 InsertService is a part of CAS and replicates the legacy functions that StamperTools use.
 
-For more info view (InsertService.md)[/InsertService.md].
+For more info view [InsertService.md](/InsertService.md).
 
 ## Checklist
 - [ ] Services
@@ -32,7 +32,7 @@ For more info view (InsertService.md)[/InsertService.md].
     - [x] ReplicatedFirst
     - [x] ScriptContext
     - [x] CoreGui
-    - [x] (InsertService)[/InsertService.md]
+    - [x] [InsertService.md](/InsertService.md)
     - [x] StarterGui
     - [ ] Players
     - [ ] GuiService
