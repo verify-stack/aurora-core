@@ -1,0 +1,74 @@
+{
+  "name": "aurora-core",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "AuroraCore": {
+        "$path": "src/main"
+      }
+    },
+
+    "ServerScriptService": {
+      "AuroraCore": {
+        "$path": "src/server"
+      }
+    },
+
+    "ReplicatedFirst": {
+      "$path": "src/loader"
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "$path": "src/tests"
+      }
+    },
+
+    "Workspace": {
+      "$properties": {
+        "FilteringEnabled": true
+      },
+      "Baseplate": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Color": [
+            0.38823,
+            0.37254,
+            0.38823
+          ],
+          "Locked": true,
+          "Position": [
+            0,
+            -10,
+            0
+          ],
+          "Size": [
+            512,
+            20,
+            512
+          ]
+        }
+      }
+    },
+    "Lighting": {
+      "$properties": {
+        "Ambient": [
+          0,
+          0,
+          0
+        ],
+        "Brightness": 2,
+        "GlobalShadows": true,
+        "Outlines": false,
+        "Technology": "Voxel"
+      }
+    },
+    "SoundService": {
+      "$properties": {
+        "RespectFilteringEnabled": true
+      }
+    }
+  }
+}

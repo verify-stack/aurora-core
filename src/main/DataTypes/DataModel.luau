@@ -1,0 +1,89 @@
+-- DataModel instance aka game
+-- by mike
+-- v2025.0615
+
+local InstanceRoot = require("./Instance")
+local RBXScriptSignal = require("./RBXScriptSignal")
+local Inheritance = require("../Utils/Inheritance")
+local settings = require("../Settings")
+local EnvConfig = require("../EnvConfig")
+
+local Services = script.Parent.Parent:WaitForChild("Services")
+
+local DataModel = setmetatable({}, InstanceRoot)
+DataModel.__index = DataModel
+
+function DataModel.new()
+	local self = setmetatable(InstanceRoot.new(game), DataModel)
+	self.MESSAGE_VAILDSERVICE = "'%s' is not a valid Service name"
+	self.FLAG_USEGETSERVICE = settings():GetFFlag("UseClassNameGetService")
+	self.FLAG_DELAYLOADING = settings():GetFFlag("UseDelayedLoading")
+	self.SERVICES = {}
+	for _, module in ipairs(Services:GetChildren()) do
+		self.SERVICES[module.Name] = require(module).new()
+		self[module.Name] = self.SERVICES[module.Name]
+	end
+	
+	if self.FLAG_DELAYLOADING then
+		self.Loaded = RBXScriptSignal.new()
+		
+		task.spawn(function()
+			if game:IsLoaded() then
+				task.wait(15)
+				self.Loaded:Fire()
+			end
+		end)
+	else
+		self.FinishedScript = RBXScriptSignal.new()
+	end
+	
+	return self
+end
+
+function DataModel:GetAdmins()
+	return EnvConfig.AdminList
+end
+
+function DataModel:FindService(name)
+	local Service = self.SERVICES[name]
+	if not Service then
+		local success, message = pcall(function()
+			Service = game:FindService(name)
+		end)
+	end
+	assert(Service, self.MESSAGE_VAILDSERVICE:format(name))
+	
+	return Service
+end
+
+function DataModel:GetService(name)
+	-- slightly slower version of findservice
+	-- but is faithful to roblox
+	if self.FLAG_USEGETSERVICE then
+		for _, module in self.SERVICES do
+			if module.ClassName == name then
+				return module
+			end
+		end
+		
+		return game:GetService(name)
+	else
+		return self:FindService(name)
+	end
+end
+
+function DataModel:SetVerb(guiObject, verbString)
+	assert(self:GetService("RunService"):IsClient(), "SetVerb can only be ran on the client")
+	assert(guiObject:IsA("GuiObject"), "guiObject must be a GuiObject")
+	
+	local verbList = {
+		["Exit"] = function()
+			-- TODO: add more things here
+			self:GetService("TeleportService"):Teleport(1)
+		end,
+	}
+	
+	guiObject.MouseButton1Click:Connect(verbList[verbString])
+end
+
+return Inheritance.new(game, DataModel)
