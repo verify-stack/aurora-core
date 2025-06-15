@@ -9,6 +9,8 @@ CAS works as a handler for the existing proxy system.
 The proxy provides the client fake functions which just calls RemoteEvents/RemoteFunctions.
 Those events are connected to a server.
 
+View an example: [client](/src/main/Services/InsertService.luau), [server](/src/server/Services/InsertService.luau).
+
 #### Problems
 While this works great, there are major problems.
 * A script must call the service inorder for it to work.
