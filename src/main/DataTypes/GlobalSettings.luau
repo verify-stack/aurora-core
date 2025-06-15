@@ -1,6 +1,6 @@
 -- settings for scripts
 -- by mike
--- v2025.0511
+-- v2025.0615
 
 local InstanceRoot = require("./Instance")
 local EnvConfig = require("../EnvConfig")
@@ -16,7 +16,7 @@ function GlobalSettings.new()
 	self.ClassName = "GlobalSettings"
 	for _, setting in ipairs(SettingsSubset:GetChildren()) do
 		setting = require(setting).new()
-		self.Children[setting.Name] = setting 
+		table.insert(self.Children, setting)
 		self[setting.Name] = setting
 	end
 

@@ -27,6 +27,8 @@ function Players.new()
 	
 	self.FriendRequestEvent = RBXScriptSignal.new()
 	self.PlayerChatted = RBXScriptSignal.new()
+	self.ChildAdded = PlayersRoot.ChildAdded
+	self.ChildRemoved = PlayersRoot.ChildRemoved
 	
 	if RunService:IsClient() then
 		TextChatService.MessageReceived:Connect(function(textChatMessage)

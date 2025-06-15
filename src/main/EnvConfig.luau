@@ -11,9 +11,13 @@ EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0615 ROJO) (LUAU FENV)"
 -- AuroraCore settings
 -- FFlags are pretty much settings for how the client should work
 EnvConfig.FFlags = {
+	-- aurora core related things
 	UseClassNameGetService = false,
 	UseDelayedLoading = false, -- some weird hack, only here if people want it
 	EnableInsertServiceSupport = false, -- primarly from bloxvival
+	DisableRobloxCoreGui = true,
+	AllowCASConnectionsAndDatabaseConnections = true, -- currently does nothing but turn off insertservice
+
 	NewPlayerListScript = true,
 	NewMenuSettingsScript = false,
 	ConsoleCodeExecutionEnabled = true,

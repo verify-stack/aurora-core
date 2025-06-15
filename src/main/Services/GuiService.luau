@@ -95,6 +95,7 @@ function GuiService:SetGlobalGuiInset(xo, xs, yo, ys)
 	UIPadding.PaddingRight = UDim.new(xo, xs)
 	UIPadding.PaddingBottom = UDim.new(yo, ys)
 	
+	-- TODO: fix this code being not nice
 	for _, gui in pairs(game:GetService("Players").LocalPlayer.PlayerGui:GetChildren()) do -- lazy way lol
 		if not gui:IsA("ScreenGui") then
 			continue

@@ -1,6 +1,6 @@
 -- user settings for scripts
 -- by mike
--- v2025.0511
+-- v2025.0615
 
 local InstanceRoot = require("./Instance")
 local EnvConfig = require("../EnvConfig")
@@ -14,7 +14,7 @@ function UserSettings.new()
 	self.FAILURE_NOFLAG = "Flag %s does not exist"
 	self.Name = "GlobalBasicSettings"
 	self.ClassName = "UserSettings"
-	self.Children[UserGameSettings.Name] = UserGameSettings 
+	table.insert(self.Children, UserGameSettings)
 	self[UserGameSettings.Name] = UserGameSettings
 
 	return self

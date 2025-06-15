@@ -1,10 +1,11 @@
--- builds RobloxGui, DO NOT TOUCH THIS SCRIPT
+-- builds RobloxGui
 -- by mike
--- v2025.0607
+-- v2025.0615
 
 _G:Inject(getfenv())
 
 --// Services \\
+local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -13,7 +14,6 @@ local CoreGuiVersions = { -- view full version in EnvConfig
 	{7, 4},
 	{7, 3},
 	{7, 2},
-    {7, 1}
 }
 local AuroraCore = ReplicatedStorage:WaitForChild("AuroraCore")
 local CoreScripts = AuroraCore.CoreScripts
@@ -98,14 +98,65 @@ RobloxGuiBuilds:AddGuiBuild({7, 4}, function(coregui)
 	BottomRightControl.Size = UDim2.new(0, 180, 0, 41)
 	BottomRightControl.Parent = ControlFrame
 	
-	local mouseLockLabel = Instance.new("ImageButton")
+	local mouseLockOn, mouseLockOnOvr = "rbxassetid://73948379887913", "rbxassetid://77193127237926"
+	local mouseLockOff, mouseLockOffOvr = "rbxassetid://85469622625688", "rbxassetid://121131447552022"
+	local mouseLockLabel, mouseLockEnabled, hover = Instance.new("ImageButton"), false, false
 	mouseLockLabel.Name = "MouseLockLabel"
-	mouseLockLabel.Image = "rbxasset://textures/ui/mouseLock_off.png"
+	mouseLockLabel.Image = mouseLockOff
 	mouseLockLabel.BackgroundTransparency = 1
 	mouseLockLabel.Position = UDim2.new(0, 2, 0, -65)
 	mouseLockLabel.BorderColor3 = Color3.new(0.106, 0.165, 0.208)
 	mouseLockLabel.Size = UDim2.new(0, 62, 0, 62)
 	mouseLockLabel.Parent = BottomLeftControl
+	
+	-- so i'm actually not sure if we should handle this in the camerascript
+	-- but oh well, we have to think of the people who are using this!!!
+	local PlayerScripts = Players.LocalPlayer.PlayerScripts
+	if not PlayerScripts:FindFirstChild("CameraScript") then
+		warn("The legacy camera script DOES NOT EXIST!")
+		warn("The MouseLockLabel function will not be properly loaded.")
+		
+		RobloxGuiBuilds:InjectModuleBuild(RobloxGui)
+		return
+	end
+	
+	local ShiftLockController = require(PlayerScripts:WaitForChild("CameraScript").ShiftLockController)
+	local updateMouselock = function()
+		mouseLockEnabled = not mouseLockEnabled
+		if mouseLockEnabled then
+			mouseLockLabel.Image = mouseLockOn
+			if hover then
+				mouseLockLabel.Image = mouseLockOnOvr
+			end
+		else
+			mouseLockLabel.Image = mouseLockOff
+			if hover then
+				mouseLockLabel.Image = mouseLockOffOvr
+			end
+		end
+	end
+	
+	mouseLockLabel.MouseEnter:Connect(function()
+		hover = true
+		if mouseLockEnabled then
+			mouseLockLabel.Image = mouseLockOnOvr
+		else
+			mouseLockLabel.Image = mouseLockOffOvr
+		end
+	end)
+	mouseLockLabel.MouseLeave:Connect(function()
+		hover = false
+		if mouseLockEnabled then
+			mouseLockLabel.Image = mouseLockOn
+		else
+			mouseLockLabel.Image = mouseLockOff
+		end
+	end)
+	mouseLockLabel.MouseButton1Click:Connect(function()
+		ShiftLockController:toggleShiftlock()
+	end)
+	
+	ShiftLockController.OnShiftLockToggled.Event:Connect(updateMouselock)
 	
 	RobloxGuiBuilds:InjectModuleBuild(RobloxGui)
 end)

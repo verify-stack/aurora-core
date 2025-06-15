@@ -1,4 +1,5 @@
 # aurora-core
+![version: v2025.615](https://img.shields.io/badge/version-v2025.615-blue?style=flat)
 A incomplete barebones framework for replicating legacy CoreScripts and stamper tools on normal ROBLOX games.
 
 ## Get Started
@@ -20,13 +21,18 @@ Refer to [PATCHING.md](/PATCHING.md).
 ## Linking with a database
 Refer to [CAS.md](/CAS.md).
 
+## Stamper Tools/InsertService
+InsertService is a part of CAS and replicates the legacy functions that StamperTools use.
+
+For more info view (InsertService.md)[/InsertService.md].
+
 ## Checklist
 - [ ] Services
     - [x] TestService
     - [x] ReplicatedFirst
     - [x] ScriptContext
     - [x] CoreGui
-    - [x] InsertService
+    - [x] (InsertService)[/InsertService.md]
     - [x] StarterGui
     - [ ] Players
     - [ ] GuiService
