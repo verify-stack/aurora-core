@@ -1,6 +1,6 @@
 -- insert service replacement for old scripts that use sets
 -- by mike
--- v2025.0517
+-- v2025.0615
 
 local InsertServiceRoot = game:GetService("InsertService")
 local HttpService = game:GetService("HttpService")
@@ -10,6 +10,7 @@ local AuroraCore = ServerStorage:WaitForChild("AuroraCore")
 local Assets = AuroraCore:WaitForChild("Assets")
 
 local InstanceRoot = require("../../../ReplicatedStorage/AuroraCore/DataTypes/Instance")
+local settings = require("../../../ReplicatedStorage/AuroraCore/Settings")
 local Inheritance = require("../../../ReplicatedStorage/AuroraCore/Utils/Inheritance")
 local ProxyServer = require("../Utils/ProxyServer")
 local xml2lua = require("../Utils/xml2lua")
@@ -18,6 +19,9 @@ local InsertService = setmetatable({}, InstanceRoot)
 InsertService.__index = InsertService
 
 function InsertService.new()
+	assert(settings():GetFFlag("EnableInsertServiceSupport"), "The FFlag \"EnableInsertServiceSupport\" is disabled. Enable it to use InsertService!")
+	assert(settings():GetFFlag("AllowCASConnectionsAndDatabaseConnections"), "The FFlag \"AllowCASConnectionsAndDatabaseConnections\" is disabled. Enable it to use InsertService!")
+
 	local self = setmetatable(InstanceRoot.new(InsertServiceRoot), InsertService)
 	self.ClassName = "InsertService"
 	self.Name = "InsertService"

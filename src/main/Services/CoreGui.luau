@@ -1,6 +1,17 @@
 -- startergui but for default guis
 -- by mike
--- v2025.0608
+-- v2025.0618
+
+local RunService = game:GetService("RunService")
+if RunService:IsServer() then
+	return {
+		new = function()
+			return {
+				WARNING = "The FFlag \"AllowCASConnectionsAndDatabaseConnections\" is disabled. Enable it to use InsertService!"
+			}
+		end
+	}
+end
 
 local Players = game:GetService("Players")
 local PlayerGui = Players.LocalPlayer.PlayerGui

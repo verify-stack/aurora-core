@@ -65,6 +65,10 @@ function Players:Chat(cText)
 end
 
 function Players:TeamChat(cText)
+	local RunService = game:GetService("RunService")
+	if RunService:IsServer() then
+		return
+	end
 	local success, message = pcall(function()
 		local currentTeam = PlayersRoot.LocalPlayer.TeamColor.Name
 		local RBXTeam = TextChatService.TextChannels["RBXTeam" .. currentTeam]

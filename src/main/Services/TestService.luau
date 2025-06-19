@@ -13,8 +13,8 @@ function TestService.new()
 	local self = setmetatable(InstanceRoot.new(), TestService)
 	self.ClassName = "TestService"
 	
-	self.AuroraCoreVersion = "v2025.0615"
-	self.AuroraCoreVersionGlobal = 7
+	self.AuroraCoreVersion = "v2025.0618"
+	self.AuroraCoreVersionGlobal = 8
 	
 	return self
 end

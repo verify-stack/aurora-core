@@ -1,6 +1,6 @@
 -- settings for scripts
 -- by mike
--- v2025.0615
+-- v2025.0618
 
 local InstanceRoot = require("./Instance")
 local EnvConfig = require("../EnvConfig")
@@ -24,8 +24,16 @@ function GlobalSettings.new()
 end
 
 function GlobalSettings:GetFFlag(name)
-	assert(EnvConfig[name], self.FAILURE_NOFLAG:format(name))
-	return EnvConfig[name]
+	local findFlag = function(name)
+		for key, value in pairs(EnvConfig.FFlags) do
+			if key == name then
+				return value
+			end
+		end
+	end
+	
+	assert(findFlag(name) ~= nil, self.FAILURE_NOFLAG:format(name))
+	return findFlag(name)
 end
 
 function GlobalSettings:GetFVariable(name)

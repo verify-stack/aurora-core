@@ -7,7 +7,7 @@ CAS is an incomplete adapter for AuroraCore which allows for connections with yo
 ## Disabling CAS.
 CAS/Proxy is unsafe because it allows people to access server commands. If you want to disable it, turn the FFlag `AllowCASConnectionsAndDatabaseConnections` off.
 
-But it'll disable any services that use the server.
+But it'll disable any services that use the server, as well any requests.
 
 ### Services it'll Disable.
 - [x] InsertService (view more at [InsertService.md](/InsertService.md))
@@ -40,5 +40,6 @@ While this works great, there are major problems.
 CAS solves some of the issues the proxy presents. **TODO**
 
 #### Network
-Proxy creates unprotected events, CAS removes that issue.
-**TODO**
+Proxy creates unprotected events, CAS patches that issue.
+
+By funneling requests though 2 remotes and requiring a key, you have to do some special magic to access them.

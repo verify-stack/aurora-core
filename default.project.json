@@ -10,7 +10,7 @@
     },
 
     "ServerScriptService": {
-      "$path": "src/tests/client"
+      "$path": "src/loader/server"
     },
 
     "ServerStorage": {
@@ -20,7 +20,7 @@
     },
 
     "ReplicatedFirst": {
-      "$path": "src/loader"
+      "$path": "src/loader/client"
     },
 
     "StarterPlayer": {

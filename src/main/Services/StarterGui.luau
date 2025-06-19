@@ -1,11 +1,12 @@
 -- only here for coregui handling
 -- by mike
--- v2025.0615
+-- v2025.0618
 
 local StarterGuiRoot = game:GetService("StarterGui")
 local InstanceRoot = require("../DataTypes/Instance")
 local RBXScriptSignal = require("../DataTypes/RBXScriptSignal")
 local Inheritance = require("../Utils/Inheritance")
+local settings = require("../Settings")
 
 local StarterGui = setmetatable({}, InstanceRoot)
 StarterGui.__index = StarterGui

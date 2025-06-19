@@ -1,15 +1,16 @@
 -- config for AuroraCore
 -- by mike
--- v2025.0615
+-- v2025.0618
 
 local EnvConfig = {}
 
 -- AuroraCore generic strings
 -- these aren't really important
-EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0615 ROJO) (LUAU FENV)"
+EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0618 ROJO) (LUAU FENV)"
 
 -- AuroraCore settings
 -- FFlags are pretty much settings for how the client should work
+-- note these are 2015E fflags and AuroraCore flags.
 EnvConfig.FFlags = {
 	-- aurora core related things
 	UseClassNameGetService = false,

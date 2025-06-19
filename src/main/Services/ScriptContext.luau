@@ -1,4 +1,4 @@
--- testing service for checks
+-- insert scripts into the roblox runtime
 -- by mike
 -- v2025.0601
 

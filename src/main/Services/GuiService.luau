@@ -1,6 +1,6 @@
 -- very important service for corescripts
 -- by mike
--- v2025.0608
+-- v2025.0618
 
 local GuiServiceRoot = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
@@ -29,7 +29,20 @@ function GuiService.new()
 	self._skeyTable = {}
 	self._keyRefTable = {
 		["~"] = Enum.KeyCode.Tilde,
-		["\t"] = Enum.KeyCode.Tab
+		["\t"] = Enum.KeyCode.Tab,
+		["`"] = Enum.KeyCode.Backquote,
+		
+		-- backpack thingy
+		["0"] = Enum.KeyCode.Zero,
+		["1"] = Enum.KeyCode.One,
+		["2"] = Enum.KeyCode.Two,
+		["3"] = Enum.KeyCode.Three,
+		["4"] = Enum.KeyCode.Four,
+		["5"] = Enum.KeyCode.Five,
+		["6"] = Enum.KeyCode.Six,
+		["7"] = Enum.KeyCode.Seven,
+		["8"] = Enum.KeyCode.Eight,
+		["9"] = Enum.KeyCode.Nine,
 	}
 	self._skeyRefTable = {
 		[Enum.SpecialKey.ChatHotkey] = Enum.KeyCode.Slash
@@ -66,24 +79,51 @@ function GuiService:AddSpecialKey(specialKey)
 	self._skeyTable[self._skeyRefTable[specialKey]] = specialKey
 end
 
+function GuiService:AddKey(key)
+	self._keyTable[self._keyRefTable[key] or Enum.KeyCode[key]] = key
+end
+
+function GuiService:RemoveSpecialKey(specialKey)
+	self._skeyTable[self._skeyRefTable[specialKey]] = nil
+end
+
+function GuiService:RemoveKey(key)
+	self._keyTable[self._keyRefTable[key] or Enum.KeyCode[key]] = nil
+end
+
 function GuiService:GetScreenResolution() -- why is this for RobloxScript only???
 	return workspace.CurrentCamera.ViewportSize
 end
 
 function GuiService:GetInstanceCount()
-	return 9
+	return #game:GetDescendants()
 end
 
 function GuiService:GetVoxelCount()
-	return 9
+	-- no idea what this is
+	return 0
 end
 
 function GuiService:GetBrickCount()
-	return 9
+	local numPartInstances = 0
+	for _, part in pairs(game:GetDescendants()) do
+		if part:IsA("BasePart") then
+			numPartInstances += 1
+		end
+	end
+
+	return numPartInstances
 end
 
 function GuiService:GetConnectorCount()
-	return 9
+	local numJointInstances = 0
+	for _, part in pairs(game:GetDescendants()) do
+		if part:IsA("JointInstance") then
+			numJointInstances += 1
+		end
+	end
+
+	return numJointInstances
 end
 
 function GuiService:GetErrorMessage()

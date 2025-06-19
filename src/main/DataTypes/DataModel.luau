@@ -20,6 +20,7 @@ function DataModel.new()
 	self.FLAG_DELAYLOADING = settings():GetFFlag("UseDelayedLoading")
 	self.SERVICES = {}
 	for _, module in ipairs(Services:GetChildren()) do
+		print(module)
 		self.SERVICES[module.Name] = require(module).new()
 		self[module.Name] = self.SERVICES[module.Name]
 	end
