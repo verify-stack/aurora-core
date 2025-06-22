@@ -1,10 +1,12 @@
 # aurora-core
-![version: v2025.615](https://img.shields.io/badge/version-v2025.615-blue?style=flat)
+![version: v2025.622](https://img.shields.io/badge/version-v2025.621-blue?style=flat)
 <br>
 A incomplete barebones framework for replicating legacy CoreScripts and stamper tools on normal ROBLOX games.
 
 ## Get Started
 Import the `AuroraCore.rbxm` file into ReplicatedStorage and move the AuroraLoader script inside to ReplicatedFirst.
+
+For more info, go to [the docs](/docs/README.md).
 
 ## Usual CoreScript Structure
 ```txt
@@ -17,15 +19,15 @@ LoadingScript...........Loading GUI (2014L and above)
 ```
 
 ## Patching CoreScripts
-Refer to [PATCHING.md](/PATCHING.md).
+Refer to [PATCHING.md](/docs/PATCHING.md).
 
 ## Linking with a database
-Refer to [CAS.md](/CAS.md).
+Refer to [CAS.md](/docs/Utils/CAS.md).
 
 ## Stamper Tools/InsertService
 InsertService is a part of CAS and replicates the legacy functions that StamperTools use.
 
-For more info view [InsertService.md](/InsertService.md).
+For more info view [InsertService.md](/docs/Utils/InsertService.md).
 
 ## Checklist
 - [ ] Services
@@ -33,7 +35,7 @@ For more info view [InsertService.md](/InsertService.md).
     - [x] ReplicatedFirst
     - [x] ScriptContext
     - [x] CoreGui
-    - [x] [InsertService.md](/InsertService.md)
+    - [x] [InsertService.md](/docs/Utils/InsertService.md)
     - [x] StarterGui
     - [ ] Players
     - [ ] GuiService
@@ -52,7 +54,7 @@ For more info view [InsertService.md](/InsertService.md).
     - [ ] Instance
 - [ ] Supported RobloxGui Types
     - [x] 7D
-    - [ ] 7C
+    - [x] 7C
     - [ ] 7B
     - [ ] 7A
 - [ ] Networking
