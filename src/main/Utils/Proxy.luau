@@ -6,6 +6,8 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local AuroraCore = ReplicatedStorage:WaitForChild("AuroraCore")
 local ProxyFolder = AuroraCore:WaitForChild("ProxyEvents")
 
+local RBXScriptSignal = require("../DataTypes/RBXScriptSignal")
+
 local Proxy = {}
 Proxy.__index = Proxy
 
@@ -27,6 +29,16 @@ function Proxy:AddSingleWayMethod(name)
 	self[name] = function(_, ...)
 		self._folder[name]:FireServer(...)
 	end
+end
+
+function Proxy:AddVariable(name)
+	local variable = self._folder[name]
+	assert(not variable:IsA("IntConstrainedValue"), "this is an signal")
+	self[name] = variable.Value
+end
+
+function Proxy:AddSignal(name)
+	self[name] = RBXScriptSignal.new()
 end
 
 return Proxy

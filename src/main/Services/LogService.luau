@@ -13,6 +13,7 @@ LogService.__index = LogService
 function LogService.new()
 	local self = setmetatable(InstanceRoot.new(), LogService)
 	self.ClassName = "LogService"
+	self.UseVLuaEmulation = true -- placeholder for an fflag
 	self.TunaCanVersion = "v2025.0614" -- TODO: add tuna-can instead of vLua, there are many reasons for this
 	
 	self.ServerMessageOut = RBXScriptSignal.new()

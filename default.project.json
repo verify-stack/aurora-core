@@ -10,7 +10,10 @@
     },
 
     "ServerScriptService": {
-      "$path": "src/loader/server"
+      "$path": "src/loader/server",
+      "Tests": {
+        "$path": "src/tests/server"
+      }
     },
 
     "ServerStorage": {

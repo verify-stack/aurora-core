@@ -1,6 +1,6 @@
 -- a wrapper of the player to allow data persistence
 -- by mike
--- v2025.0517
+-- v2025.0624
 -- NOTE: i give up, i am NOT making my own instance datastore thingy. community resources is my goat.
 
 local DataStoreService = game:GetService("DataStoreService")
@@ -87,10 +87,12 @@ function DataPersistence:WaitForDataReady()
 	until self.DataReady == true
 end
 
-return function(player) -- big hack over here
-	local givenPlayer = CurrentPlayers[player.UserId]
-	if not givenPlayer then
-		CurrentPlayers[player.UserId] = Inheritance.new(player, DataPersistence)
+return { -- big hack over here
+	new = function(player)
+		local givenPlayer = CurrentPlayers[player.UserId]
+		if not givenPlayer then
+			CurrentPlayers[player.UserId] = Inheritance.new(player, DataPersistence)
+		end
+		return CurrentPlayers[player.UserId]
 	end
-	return CurrentPlayers[player.UserId]
-end
+} 

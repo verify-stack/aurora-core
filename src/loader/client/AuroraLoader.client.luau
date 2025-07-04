@@ -23,7 +23,7 @@ else
 	end)
 end
 Game:GetService("ScriptContext"):AddCoreScriptLocal("RobloxGuiBuilder", Players.LocalPlayer.PlayerGui) -- might move this
-Game:GetService("ScriptContext"):AddCoreScriptLocal("LoadingScript", Players.LocalPlayer.PlayerGui)
+pcall(function) Game:GetService("ScriptContext"):AddCoreScriptLocal("LoadingScript", Players.LocalPlayer.PlayerGui) end)
 
 
 print("Loaded AuroraCore " .. _VERSION)

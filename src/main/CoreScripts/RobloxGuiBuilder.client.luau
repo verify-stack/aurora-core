@@ -206,7 +206,6 @@ RobloxGuiBuilds:AddGuiBuild({7, 3}, function(coregui)
 	mouseLockLabel.Parent = BottomLeftControl
 	
 	RobloxGuiBuilds:ControlMouseLock(mouseLockLabel, mouseLockOn, mouseLockOnOvr, mouseLockOff, mouseLockOffOvr)
-	RobloxGuiBuilds:InjectModuleBuild(RobloxGui)
 end)
 
 --// Connections \\

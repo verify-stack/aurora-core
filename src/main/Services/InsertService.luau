@@ -7,7 +7,7 @@ local Proxy = require("../Utils/Proxy")
 local settings = require("../Settings")
 
 if not settings():GetFFlag("EnableInsertServiceSupport") then
-	warn("The FFlag \"EnableInsertServiceSupport\" is disabled. Enable it to use InsertService!")
+	--warn("The FFlag \"EnableInsertServiceSupport\" is disabled. Enable it to use InsertService!")
 	return {
 		new = function()
 			return {
@@ -17,7 +17,7 @@ if not settings():GetFFlag("EnableInsertServiceSupport") then
 	}
 end
 if not settings():GetFFlag("AllowCASConnectionsAndDatabaseConnections") then
-	warn("The FFlag \"AllowCASConnectionsAndDatabaseConnections\" is disabled. Enable it to use InsertService!")
+	--warn("The FFlag \"AllowCASConnectionsAndDatabaseConnections\" is disabled. Enable it to use InsertService!")
 	return {
 		new = function()
 			return {

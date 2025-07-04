@@ -5,7 +5,7 @@ Throughout most of ROBLOX's lifetime, `GuiService` handled most gui related util
 Before `ContextActionService` and `UserInputService` existed, `GuiService` had a system where you could register keys via strings and Enums.
 
 API:
-``Lua
+```Lua
 GuiService:AddKey(string) -- Adds a key to the key list.
 GuiService:RemoveKey(string) -- Removes a key from the key list.
 GuiService:AddSpecialKey(Enum.SpecialKey) -- Adds a key to the special key list.
@@ -13,13 +13,13 @@ GuiService:RemoveSpecialKey(Enum.SpecialKey) -- Removes a key from the special k
 
 GuiService.KeyPressed -- When a normal key is pressed (:AddKey).
 GuiService.SpecialKeyPressed -- When a special key is pressed (:AddSpecialKey).
-``
+```
 
 ## Centre Dialogs
 To handle how popups/dialogs worked, ROBLOX created the `CenterDialog` apis.
 
 API:
-``Lua
+```Lua
 -- PUBLIC:
 GuiService:AddCenterDialog(dialogInstance, type, show, hide) -- Adds a dialog instance to dialog queue, or just runs it.
 GuiService:RemoveCenterDialog(dialogInstance) -- Removes and shows a dialog from the queue.
@@ -28,13 +28,13 @@ GuiService:RemoveCenterDialog(dialogInstance) -- Removes and shows a dialog from
 GuiService:shouldPreemptCurrentDialog(newDialog) -- Checks if the dialog should run.
 GuiService:queueDialogWrapper(newDialog, preempted) -- Adds the dialog to a queue.
 GuiService:showWaitingDialog(type) -- Returns the first waiting dialog.
-``
+```
 
 ## Misc
 Some random APIs used in CoreScripts.
 
 API:
-``Lua
+```Lua
 GuiService:GetScreenResolution() -- Returns the screen size.
 GuiService:SetGlobalGuiInset(xo, xs, yo, ys) -- Offsets every gui.
 
@@ -44,6 +44,6 @@ GuiService:GetBrickCount() -- Gets a part count.
 GuiService:GetConnectorCount() -- Returns the amount of any JointInstances.
 
 GuiService:GetErrorMessage() -- Returns an error message.
-``
+```
 
 [Back <-](/docs/README.md) || [Next ->](/docs/Services/CoreGui.md)

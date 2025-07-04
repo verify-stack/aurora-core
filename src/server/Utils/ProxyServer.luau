@@ -5,6 +5,16 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local AuroraCore = ReplicatedStorage:WaitForChild("AuroraCore")
 local ProxyFolder = AuroraCore:WaitForChild("ProxyEvents")
+local getClassBasedOnType = function(class)
+	local typeList = {
+		["string"] = "StringValue",
+		["boolean"] = "BoolValue",
+		["number"] = "IntValue",
+		["Instance"] = "ObjectValue"
+	}
+
+	return typeList[class]
+end
 
 local Proxy = {}
 Proxy.__index = Proxy
@@ -15,7 +25,6 @@ function Proxy.new(name)
 		local folder = Instance.new("Folder")
 		folder.Name = name
 		folder.Parent = ProxyFolder
-		print("creating folder")
 	end
 	self._folder = ProxyFolder[name]
 
@@ -38,6 +47,21 @@ function Proxy:AddSingleWayMethod(name, func)
 		func(...)
 	end)
 	event.Parent = self._folder
+end
+
+function Proxy:AddVariable(name, value)
+	local variable = Instance.new(getClassBasedOnType(typeof(value)))
+	variable.Name = name
+	variable.Value = value
+	variable.Parent = self._folder
+end
+
+function Proxy:AddSignal(name)
+	-- TODO: add cross signals
+	-- this is a filler function designed for having no purpose
+	local signal = Instance.new("IntConstrainedValue") -- choose an random class to represent signal
+	signal.Name = name
+	signal.Parent = self._folder
 end
 
 return Proxy

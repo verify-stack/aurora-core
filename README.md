@@ -1,5 +1,8 @@
 # aurora-core
-![version: v2025.622](https://img.shields.io/badge/version-v2025.621-blue?style=flat)
+> [!WARNING]
+> This current version of aurora-core is incomplete, expect bugs and inproper documentation.
+
+![license: mit](https://img.shields.io/badge/license-mit-orange?style=flat)![version: v2025.0704](https://img.shields.io/badge/version-v2025.0704-blue?style=flat)
 <br>
 A incomplete barebones framework for replicating legacy CoreScripts and stamper tools on normal ROBLOX games.
 
@@ -25,7 +28,7 @@ Refer to [PATCHING.md](/docs/PATCHING.md).
 Refer to [CAS.md](/docs/Utils/CAS.md).
 
 ## Stamper Tools/InsertService
-InsertService is a part of CAS and replicates the legacy functions that StamperTools use.
+InsertService replicates the legacy functions that StamperTools use.
 
 For more info view [InsertService.md](/docs/Utils/InsertService.md).
 
@@ -67,5 +70,6 @@ For more info view [InsertService.md](/docs/Utils/InsertService.md).
     - [x] Proxy.luau
     - [x] ProxyServer.luau
     - [x] xml2lua
+    - [x] SecureNet
     - [ ] DataPersistence.luau
 - [ ] Tests

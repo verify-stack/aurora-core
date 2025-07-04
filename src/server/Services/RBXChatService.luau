@@ -21,8 +21,8 @@ function RBXChatService.new()
 		self.GeneralChannel:AddUserAsync(player.UserId)
 	end
 
-	warn("RBXChatService is a temporary service until CAS releases.")
-	warn("This service will NOT be updated when CAS releases.")
+	-- warn("RBXChatService is a temporary service until CAS releases.")
+	-- warn("This service will NOT be updated when CAS releases.")
 	for _, player in Players:GetPlayers() do
         self.OnPlayerAdded(player)
     end
@@ -33,7 +33,7 @@ end
 function RBXChatService:UpdateTextChannel()
 	self.GeneralChannel = TextChatService:FindFirstChild("TextChannels")
 	if not self.GeneralChannel then
-		warn("aurora-core failed to find text channels.")
+		--warn("aurora-core failed to find text channels.")
 		return
 	end
 	assert(self.GeneralChannel:FindFirstChild("RBXGeneral"), "aurora-core failed to find text channel RBXGeneral. Please enable default generation of channels.")

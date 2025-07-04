@@ -22,7 +22,7 @@ function UserGameSettings.new()
 	self.TouchCameraMovementMode = Enum.TouchCameraMovementMode.Default
 	self.TouchMovementMode = Enum.TouchMovementMode.Default
 	self.SavedQualityLevel = Enum.SavedQualitySetting.Automatic
-	self.VideoUploadPromptBehavior = UploadEnum["Save To Disk"]
+	self.VideoUploadPromptBehavior = UploadEnum["Never"]
 
 	self.MasterVolume = 1
 
