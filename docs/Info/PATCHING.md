@@ -1,6 +1,7 @@
 # Patching CoreScripts
 > [!NOTE]
 > This only covers CoreScript related info, not logical patches.
+
 At the first line of each script insert `_G:Inject(getfenv())`, allowing the script to access AuroraCore.
 
 Here are some required patches to get things working.

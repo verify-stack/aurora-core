@@ -1,6 +1,7 @@
 # Client Adapter Service (CAS)
 > [!CAUTION]
 > CAS/Proxy allows the client to use server commands. Be careful of what you're doing.
+
 CAS is an adapter for AuroraCore which allows for connections with your database and services.
 
 ## Disabling CAS.
@@ -35,6 +36,7 @@ While this works great, there are major problems.
 ### CAS
 > [!CAUTION]
 > CAS is still as dangerous as the normal proxy. Be ware!
+
 CAS is a wrapper over proxy, requiring a non-rigid structure which can help with connecting with datastores. This also means, you don't have to deal with OOP at all.
 
 #### Template

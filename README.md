@@ -1,13 +1,13 @@
 # aurora-core
 > [!WARNING]
-> This current version of aurora-core is incomplete, expect bugs and inproper documentation.
+> This current version of aurora-core is incomplete, expect bugs and improper documentation.
 
 ![license: mit](https://img.shields.io/badge/license-mit-orange?style=flat)![version: v2025.0704](https://img.shields.io/badge/version-v2025.0704-blue?style=flat)
 <br>
 A incomplete barebones framework for replicating legacy CoreScripts and stamper tools on normal ROBLOX games.
 
 ## Get Started
-Import the `AuroraCore.rbxm` file into ReplicatedStorage and move the AuroraLoader script inside to ReplicatedFirst.
+Import the `AuroraCore.rbxm` file iand unpack it like you would normally.
 
 For more info, go to [the docs](/docs/README.md).
 
@@ -22,7 +22,7 @@ LoadingScript...........Loading GUI (2014L and above)
 ```
 
 ## Patching CoreScripts
-Refer to [PATCHING.md](/docs/PATCHING.md).
+Refer to [PATCHING.md](/docs/Info/PATCHING.md).
 
 ## Linking with a database
 Refer to [CAS.md](/docs/Utils/CAS.md).
