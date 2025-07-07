@@ -95,7 +95,10 @@ function DataModel.new()
 	for _, module in ipairs(Services:GetChildren()) do
 		self.SERVICES[module.Name] = require(module).new()
 		self[module.Name] = self.SERVICES[module.Name]
+		table.insert(self.Children, self.SERVICES[module.Name])
 	end
+
+	-- TODO: make this nicer like the comments say so below
 	if settings():GetFFlag("AllowCASConnectionsAndDatabaseConnections") and settings():GetFFlag("EnableCASProxy") and RunService:IsClient() then -- CAS support baked into this!
 		repeat
 			task.wait()
@@ -121,7 +124,7 @@ function DataModel.new()
 		end
 	end
 	
-	if self.FLAG_DELAYLOADING then
+	if self.FLAG_DELAYLOADING then -- TODO: remove this
 		self.Loaded = RBXScriptSignal.new()
 		
 		task.spawn(function()

@@ -10,7 +10,7 @@ CAS/Proxy is unsafe because it allows people to access server commands. If you w
 But it'll disable any services that use the server, as well any requests.
 
 ### Services it'll Disable.
-- [x] InsertService (view more at [InsertService.md](/docs/Utils/InsertService.md))
+- [x] InsertService (cannot be modified, view more at [InsertService.md](/docs/Utils/InsertService.md))
 - [x] BadgeService
 - [x] HttpService
 - [x] HttpRbxApiService

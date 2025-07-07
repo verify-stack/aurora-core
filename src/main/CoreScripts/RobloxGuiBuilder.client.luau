@@ -5,7 +5,7 @@
 _G:Inject(getfenv())
 
 --// Services \\
-local Players = game:GetService("Players")
+local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -60,54 +60,22 @@ function RobloxGuiBuilds:InjectModuleBuild(robloxgui) -- quick way of inserting 
 end
 
 function RobloxGuiBuilds:ControlMouseLock(mouseLockLabel, mouseLockOn, mouseLockOnOvr, mouseLockOff, mouseLockOffOvr)
-	-- so i'm actually not sure if we should handle this in the camerascript
-	-- but oh well, we have to think of the people who are using this!!!
-	-- TODO: found bug where you reset, it just doesn't work.
+	-- completely changed it so the camera module HANDLES the mouselock
+	-- we're no longer forced to handle this!!
+	GuiService.MouseLockInfo = ({
+		MouseLockLabel = mouseLockLabel,
+		MouseLockImages = {
+			Off = {
+				Normal = mouseLockOff,
+				Hover = mouseLockOffOvr
+			},
 
-	local mouseLockEnabled, hover = false, false
-	local PlayerScripts = Players.LocalPlayer.PlayerScripts
-	if not PlayerScripts:FindFirstChild("CameraScript") then
-		-- warn("The legacy camera script DOES NOT EXIST!")
-		-- warn("The MouseLockLabel function will not be properly loaded.")
-		return
-	end
-	
-	local ShiftLockController = require(PlayerScripts:WaitForChild("CameraScript").ShiftLockController)
-	local updateMouselock = function()
-		mouseLockEnabled = not mouseLockEnabled
-		if mouseLockEnabled then
-			mouseLockLabel.Image = mouseLockOn
-			if hover then
-				mouseLockLabel.Image = mouseLockOnOvr
-			end
-		else
-			mouseLockLabel.Image = mouseLockOff
-			if hover then
-				mouseLockLabel.Image = mouseLockOffOvr
-			end
-		end
-	end
-	
-	mouseLockLabel.MouseEnter:Connect(function()
-		hover = true
-		if mouseLockEnabled then
-			mouseLockLabel.Image = mouseLockOnOvr
-		else
-			mouseLockLabel.Image = mouseLockOffOvr
-		end
-	end)
-	mouseLockLabel.MouseLeave:Connect(function()
-		hover = false
-		if mouseLockEnabled then
-			mouseLockLabel.Image = mouseLockOn
-		else
-			mouseLockLabel.Image = mouseLockOff
-		end
-	end)
-	mouseLockLabel.MouseButton1Click:Connect(function()
-		ShiftLockController:toggleShiftlock()
-	end)
-	ShiftLockController.OnShiftLockToggled.Event:Connect(updateMouselock)
+			On = {
+				Normal = mouseLockOn,
+				Hover = mouseLockOnOvr
+			}
+		}
+	})
 end
 
 --// RobloxGui Versions \\

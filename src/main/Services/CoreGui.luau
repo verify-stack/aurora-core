@@ -1,13 +1,13 @@
 -- startergui but for default guis
 -- by mike
--- v2025.0618
+-- v2025.0706
 
 local RunService = game:GetService("RunService")
 if RunService:IsServer() then
 	return {
 		new = function()
 			return {
-				WARNING = "The FFlag \"AllowCASConnectionsAndDatabaseConnections\" is disabled. Enable it to use InsertService!"
+				WARNING = "The server cannot access CoreGui."
 			}
 		end
 	}
@@ -18,7 +18,7 @@ local PlayerGui = Players.LocalPlayer.PlayerGui
 
 local InstanceRoot = require("../DataTypes/Instance")
 local Inheritance = require("../Utils/Inheritance")
-local Create = require("../Utils/Create")
+--local Create = require("../Utils/Create") [did you know RobloxGuiBuilder would've been here instead. i will do that later]
 local EnvConfig = require("../EnvConfig")
 
 local CoreGui = setmetatable({}, InstanceRoot)

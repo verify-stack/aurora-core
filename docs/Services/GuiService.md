@@ -44,6 +44,27 @@ GuiService:GetBrickCount() -- Gets a part count.
 GuiService:GetConnectorCount() -- Returns the amount of any JointInstances.
 
 GuiService:GetErrorMessage() -- Returns an error message.
+
+GuiService:GetMouseLockInfo() --[[ 
+    Returns info about the mouse lock label, this is not apart of the ROBLOX api. 
+    [only v2025.0706 and above]
+
+    Return example:
+    {
+		MouseLockLabel = mouseLockLabel,
+		MouseLockImages = {
+			Off = {
+				Normal = mouseLockOff,
+				Hover = mouseLockOffOvr
+			},
+
+			On = {
+				Normal = mouseLockOn,
+				Hover = mouseLockOnOvr
+			}
+		}
+	}
+]]
 ```
 
 [Back <-](/docs/README.md) || [Next ->](/docs/Services/CoreGui.md)

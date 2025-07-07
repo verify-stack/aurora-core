@@ -1,6 +1,6 @@
 -- every object will inherit this
 -- by mike
--- v2025.0503
+-- v2025.0706
 
 local RBXScriptSignal = require("./RBXScriptSignal")
 local Instance = {}
@@ -21,6 +21,7 @@ function Instance.prototype(value)
 	self.ChildRemoved = RBXScriptSignal.new()
 	self.Destroying = RBXScriptSignal.new()
 	self.AncestryChanged = RBXScriptSignal.new()
+	self.Changed = RBXScriptSignal.new() -- we'll add detection later
 
 	if value then
 		value.ChildAdded:Connect(function(child)

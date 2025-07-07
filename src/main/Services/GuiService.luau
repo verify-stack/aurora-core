@@ -15,6 +15,8 @@ GuiService.__index = GuiService
 function GuiService.new()
 	local self = setmetatable(InstanceRoot.new(GuiServiceRoot), GuiService)
 	self.ClassName = "GuiService"
+	self.MouseLockInfo = false
+
 	self.ErrorMessageChanged = RBXScriptSignal.new()
 	self.UiMessageChanged = RBXScriptSignal.new()
 	self.ShowLeaveConfirmation = RBXScriptSignal.new()
@@ -143,6 +145,11 @@ function GuiService:SetGlobalGuiInset(xo, xs, yo, ys)
 		UIPadding:Clone().Parent = gui
 	end
 	UIPadding:Destroy()
+end
+
+function GuiService:GetMouseLockInfo()
+	assert(type(self.MouseLockInfo) == "table", "RobloxGuiBuilder.luau hasn't finished creating the RobloxGui yet!")
+	return self.MouseLockInfo
 end
 
 -- taken directly from robloxsrc.zip

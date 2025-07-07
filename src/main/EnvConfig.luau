@@ -1,24 +1,25 @@
 -- config for AuroraCore
 -- by mike
--- v2025.0704
+-- v2025.0706
 
 local EnvConfig = {}
 
 -- AuroraCore generic strings
 -- these aren't really important
-EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0704 ROJO) (LUAU FENV)"
+EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0706 ROJO) (LUAU FENV)"
 
 -- AuroraCore settings
 -- FFlags are pretty much settings for how the client should work
 -- note these are 2015E fflags and AuroraCore flags.
 EnvConfig.FFlags = {
 	-- aurora core related things
-	UseClassNameGetService = false,
+	UseClassNameGetService = false, -- breaks get service
 	EnableInsertServiceSupport = true,
 	DisableRobloxCoreGui = true,
-	UseDelayedLoading = false, -- wil be removed soon
-	EnableCASProxy = true,
-	AllowCASConnectionsAndDatabaseConnections = true, -- currently does nothing but turn off insertservice
+	UseDelayedLoading = false, -- no longer works, don't turn the flag on
+	EnableCASProxy = true, -- enables clients being able to access CAS services
+	AllowCASConnectionsAndDatabaseConnections = true,
+	ExtensionModules = false, -- read more at /docs/Info/Extensions.md
 
 	-- real roblox fflags
 	NewPlayerListScript = true,
@@ -26,7 +27,9 @@ EnvConfig.FFlags = {
 	ConsoleCodeExecutionEnabled = true,
 	NewNotificationsScript = true,
 	LuaFollowers = true,
-	MaxFriendsCount = true
+	MaxFriendsCount = true,
+	UseLuaCameraAndControl = true,
+	NewTouchControlScript = false
 }
 if EnvConfig.FFlags.NewPlayerListScript then
 	EnvConfig.AdminList = {

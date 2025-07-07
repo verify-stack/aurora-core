@@ -1,8 +1,9 @@
 -- only here for coregui handling
 -- by mike
--- v2025.0618
+-- v2025.0706
 
 local StarterGuiRoot = game:GetService("StarterGui")
+local RunService = game:GetService("RunService")
 local InstanceRoot = require("../DataTypes/Instance")
 local RBXScriptSignal = require("../DataTypes/RBXScriptSignal")
 local Inheritance = require("../Utils/Inheritance")
@@ -22,7 +23,7 @@ function StarterGui.new()
 		[Enum.CoreGuiType.Health] = true
 	}
 	self.CoreGuiChangedSignal = RBXScriptSignal.new()
-	if settings():GetFFlag("DisableRobloxCoreGui") then
+	if settings():GetFFlag("DisableRobloxCoreGui") and RunService:IsClient() then
 		StarterGuiRoot:SetCoreGuiEnabled(Enum.CoreGuiType.All, false) -- disable the coregui because we'll be replacing them
 	end
 	
