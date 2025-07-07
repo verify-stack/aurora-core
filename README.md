@@ -2,7 +2,7 @@
 > [!WARNING]
 > This current version of aurora-core is incomplete, expect bugs and improper documentation.
 
-![license: mit](https://img.shields.io/badge/license-mit-orange?style=flat)![version: v2025.0704](https://img.shields.io/badge/version-v2025.0704-blue?style=flat)
+![license: mit](https://img.shields.io/badge/license-mit-orange?style=flat)![version: v2025.0706](https://img.shields.io/badge/version-v2025.0706-blue?style=flat)
 <br>
 A incomplete barebones framework for replicating legacy CoreScripts and stamper tools on normal ROBLOX games.
 
@@ -70,6 +70,5 @@ For more info view [InsertService.md](/docs/Utils/InsertService.md).
     - [x] Proxy.luau
     - [x] ProxyServer.luau
     - [x] xml2lua
-    - [x] SecureNet
     - [ ] DataPersistence.luau
 - [ ] Tests
