@@ -18,7 +18,7 @@ end)
 ```
 
 ## CameraModule
-> ![IMPORTANT]
+> [!IMPORTANT]
 > Since `v2025.0706`, the mouse lock gui is no longer handled by `RobloxGuiBuilder`.
 > You will have to implement the function into your camera module.
 > Possible images can be accessed via `GuiService:GetMouseLockInfo()`.

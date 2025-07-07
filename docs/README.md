@@ -1,5 +1,5 @@
 # aurora-core docs
-> ![WARNING]
+> [!WARNING]
 > Starting with `v2025.0706`, aurora-core by default will not handle mouse lock to simplify installing aurora-core.
 > It's recommend you add your custom implementation via `CameraModule`, or the lua camera scripts.
 
