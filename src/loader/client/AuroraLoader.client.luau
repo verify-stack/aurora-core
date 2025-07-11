@@ -1,19 +1,26 @@
 -- loads AuroraCore
 -- by mike
--- v2025.0706
+-- v2025.0711
 
 -- preheaders for stuff
 wait()
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local AuroraCore = ReplicatedStorage:WaitForChild("AuroraCore")
 local EnvInject = require(AuroraCore.EnvInject)
+local EnvConfig = require(AuroraCore.EnvConfig)
+local ExportJSONFlags = require(AuroraCore.Utils.ExportJSONFlags)
 
 function _G:Inject(fenv)
 	EnvInject(fenv)
 end
 
+function _G:ExportJSON()
+	ExportJSONFlags(EnvConfig.FFlags, EnvConfig.ExportJSON)
+end
+
 -- loads the starterscript and stuff
 _G:Inject(getfenv())
+_G:ExportJSON()
 
 local Players = game:GetService("Players")
 local ScriptContext = game:GetService("ScriptContext")

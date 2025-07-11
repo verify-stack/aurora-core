@@ -1,0 +1,9 @@
+# Project place file
+/aurora-core.rbxlx
+
+# Roblox Studio lock files
+/*.rbxlx.lock
+/*.rbxl.lock
+
+# Testing CAS files
+/src/server/CAS/BadgeService.luau

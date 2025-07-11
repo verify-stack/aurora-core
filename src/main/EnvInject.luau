@@ -1,6 +1,6 @@
 -- injects the game datamodel into scripts
 -- by mike
--- v2025.0608
+-- v2025.0711
 
 local EnvConfig = require("./EnvConfig")
 local Game = require("./Game")

@@ -13,8 +13,8 @@ function TestService.new()
 	local self = setmetatable(InstanceRoot.new(), TestService)
 	self.ClassName = "TestService"
 	
-	self.AuroraCoreVersion = "v2025.0706"
-	self.AuroraCoreVersionGlobal = 14 -- tbh, i don't know what version it is anymore
+	self.AuroraCoreVersion = "v2025.0711"
+	self.AuroraCoreVersionGlobal = 16 -- now inline with the git commit
 	
 	return self
 end

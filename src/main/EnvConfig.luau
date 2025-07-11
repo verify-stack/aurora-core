@@ -1,12 +1,12 @@
 -- config for AuroraCore
 -- by mike
--- v2025.0706
+-- v2025.0711
 
 local EnvConfig = {}
 
 -- AuroraCore generic strings
 -- these aren't really important
-EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0706 ROJO) (LUAU FENV)"
+EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0711 ROJO) (LUAU FENV)"
 
 -- AuroraCore settings
 -- FFlags are pretty much settings for how the client should work
@@ -40,7 +40,7 @@ else
 		["moneyxmike"] = "http://www.roblox.com/asset/?id=105897927" -- remember to make the names all lowercase
 	}
 end
-EnvConfig.ExportJSON = [[{}]] -- place your fflag json file here
+EnvConfig.ExportJSON = [[{"FFlagReconstructAssetUrl": "True"}]] -- place your fflag json file here
 EnvConfig.ClientPeriod = "2015E" -- change this to your client period
 
 -- CoreGui related things

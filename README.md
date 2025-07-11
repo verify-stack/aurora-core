@@ -2,12 +2,12 @@
 > [!WARNING]
 > This current version of aurora-core is incomplete, expect bugs and improper documentation.
 
-![license: mit](https://img.shields.io/badge/license-mit-orange?style=flat)![version: v2025.0706](https://img.shields.io/badge/version-v2025.0706-blue?style=flat)
+![license: mit](https://img.shields.io/badge/license-mit-orange?style=flat)![version: v2025.0711](https://img.shields.io/badge/version-v2025.0711-blue?style=flat)
 <br>
 A incomplete barebones framework for replicating legacy CoreScripts and stamper tools on normal ROBLOX games.
 
 ## Get Started
-Import the `AuroraCore.rbxm` file iand unpack it like you would normally.
+Import the `AuroraCore.rbxm` file and unpack it like you would normally.
 
 For more info, go to [the docs](/docs/README.md).
 
@@ -40,11 +40,11 @@ For more info view [InsertService.md](/docs/Utils/InsertService.md).
     - [x] CoreGui
     - [x] [InsertService.md](/docs/Utils/InsertService.md)
     - [x] StarterGui
+    - [x] ChatService
+    - [x] UserInputService
     - [ ] Players
     - [ ] GuiService
     - [ ] LogService
-    - [ ] BadgeService
-    - [ ] MarketplaceService
 - [ ] DataTypes
     - [x] Enum
     - [x] GlobalSettings
@@ -60,10 +60,9 @@ For more info view [InsertService.md](/docs/Utils/InsertService.md).
     - [x] 7C
     - [ ] 7B
     - [ ] 7A
-- [ ] Networking
+- [x] Networking
     - [x] Proxy
-    - [ ] SecureNetwork
-    - [ ] Client Adapter Service
+    - [x] Client Adapter Service
 - [ ] Utils
     - [x] Create.luau
     - [x] Inheritance.luau
@@ -72,3 +71,7 @@ For more info view [InsertService.md](/docs/Utils/InsertService.md).
     - [x] xml2lua
     - [ ] DataPersistence.luau
 - [ ] Tests
+    - [x] CAS Client
+    - [x] CAS Server
+    - [x] JSON FFlag Test
+    - [ ] Data Test

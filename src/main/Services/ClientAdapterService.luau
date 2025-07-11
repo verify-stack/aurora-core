@@ -1,6 +1,6 @@
 -- client adapter service is important for server-side services.
 -- by mike
--- v2025.0704
+-- v2025.0711
 
 local RunService = game:GetService("RunService")
 local InstanceRoot = require("../DataTypes/Instance")
@@ -52,73 +52,7 @@ local Inheritance = require("../Utils/Inheritance")
 local RBXScriptSignal = require("../DataTypes/RBXScriptSignal")
 local Proxy = require(AuroraCore.Utils.ProxyServer)
 
-local structureReference = {
-    ["BadgeService"] = {
-        Methods = {
-            -- the only apis we would really use
-            -- there are more methods that RCCService used
-            "UserHasBadge",
-            "IsLegal",
-            "IsDisabled",
-            "AwardBadge"
-        },
-
-        Variables = {
-            "BadgeAwarded"
-        }
-    },
-	["HttpService"] = {
-        Methods = {
-            "GenerateGUID",
-            "GetAsync",
-            "JSONDecode",
-			"JSONEncode",
-			"PostAsync",
-			"UrlEncode"
-        },
-
-        Variables = {
-            "HttpEnabled"
-        }
-    },
-	["HttpRbxApiService"] = {
-        Methods = {
-            "GetAsync", -- we're not adding functions from 2018+
-            "PostAsync"
-        },
-
-		Variables = {}
-    },
-	["MarketplaceService"] = {
-		-- i'm not adding 2016-2017 functions yet.
-        Methods = {
-            "GetProductInfo",
-            "PlayerOwnsAsset",
-            "PromptPurchase",
-			"SignalPromptPurchaseFinished",
-			"PromptProductPurchase",
-			"SignalClientPurchaseSuccess",
-			"SignalPromptProductPurchaseFinished",
-			"SignalServerLuaDialogClosed",
-			"ProcessReceipt",
-			"PromptThirdPartyPurchase",
-			"PromptNativePurchase",
-			"GetDeveloperProductsAsync"
-        },
-
-        Variables = {
-            "PromptPurchaseFinished",
-			"PromptPurchaseRequested",
-			"ClientPurchaseSuccess",
-			"PromptProductPurchaseFinished",
-			"PromptProductPurchaseRequested",
-			"ServerPurchaseVerification",
-			"ClientLuaDialogRequested",
-			"ThirdPartyPurchaseFinished",
-			"NativePurchaseFinished"
-        }
-    }
-}
+local structureReference = require("../Utils/StrictStructure")
 
 local CASLogger = {}
 CASLogger.__index = CASLogger
@@ -194,7 +128,7 @@ end
 local CASToolkit = {}
 CASToolkit.__index = CASToolkit
 
-function CASToolkit.new()
+function CASToolkit.new(isClient)
     -- the mini sdk used for logging and sending instances through the server
     local self = setmetatable({}, CASToolkit)
     self.logger = CASLogger.new()
@@ -338,7 +272,10 @@ end
 function ClientAdapterService:CreateService(name)
     -- loads the server-side module and creates a proper service out of it
     local service = CASList:FindFirstChild(name)
-    assert(service, "Service " .. name .. ", doesn't exist!")
+    if not service then
+        warn("Service " .. name .. ", doesn't exist!")
+        return
+    end
     service = require(service)
 
     local structure, module = service.Structure, service.Service
@@ -355,6 +292,9 @@ function ClientAdapterService:GetService(name)
     if not newService then
         self.serviceCache[name] = self:CreateService(name)
         newService = self.serviceCache[name]
+    end
+    if not newService then
+        return
     end
     newService = newService.new()
 

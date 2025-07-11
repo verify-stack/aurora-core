@@ -1,84 +1,21 @@
 -- DataModel instance aka game
 -- by mike
--- v2025.0704
+-- v2025.0711
 
 local RunService = game:GetService("RunService")
 
 local InstanceRoot = require("./Instance")
-local RBXScriptSignal = require("./RBXScriptSignal")
 local Inheritance = require("../Utils/Inheritance")
 local Proxy = require("../Utils/Proxy")
 local settings = require("../Settings")
 local EnvConfig = require("../EnvConfig")
 
-local Services = script.Parent.Parent:WaitForChild("Services")
-local structureReference = {
-    ["BadgeService"] = {
-        Methods = {
-            -- the only apis we would really use
-            -- there are more methods that RCCService used
-            "UserHasBadge",
-            "IsLegal",
-            "IsDisabled",
-            "AwardBadge"
-        },
+local DataTypes = script.Parent
+local AuroraCore = DataTypes.Parent
+local Services = AuroraCore:WaitForChild("Services")
+local ProxyEvents = AuroraCore:WaitForChild("ProxyEvents")
 
-        Variables = {
-            "BadgeAwarded"
-        }
-    },
-	["HttpService"] = {
-        Methods = {
-            "GenerateGUID",
-            "GetAsync",
-            "JSONDecode",
-			"JSONEncode",
-			"PostAsync",
-			"UrlEncode"
-        },
-
-        Variables = {
-            "HttpEnabled"
-        }
-    },
-	["HttpRbxApiService"] = {
-        Methods = {
-            "GetAsync", -- we're not adding functions from 2018+
-            "PostAsync"
-        },
-
-		Variables = {}
-    },
-	["MarketplaceService"] = {
-		-- i'm not adding 2016-2017 functions yet.
-        Methods = {
-            "GetProductInfo",
-            "PlayerOwnsAsset",
-            "PromptPurchase",
-			"SignalPromptPurchaseFinished",
-			"PromptProductPurchase",
-			"SignalClientPurchaseSuccess",
-			"SignalPromptProductPurchaseFinished",
-			"SignalServerLuaDialogClosed",
-			"ProcessReceipt",
-			"PromptThirdPartyPurchase",
-			"PromptNativePurchase",
-			"GetDeveloperProductsAsync"
-        },
-
-        Variables = {
-            "PromptPurchaseFinished",
-			"PromptPurchaseRequested",
-			"ClientPurchaseSuccess",
-			"PromptProductPurchaseFinished",
-			"PromptProductPurchaseRequested",
-			"ServerPurchaseVerification",
-			"ClientLuaDialogRequested",
-			"ThirdPartyPurchaseFinished",
-			"NativePurchaseFinished"
-        }
-    }
-}
+local structureReference = require("../Utils/StrictStructure")
 
 local DataModel = setmetatable({}, InstanceRoot)
 DataModel.__index = DataModel
@@ -88,22 +25,37 @@ function DataModel.new()
 	self.MESSAGE_VAILDSERVICE = "'%s' is not a valid Service name"
 	self.FLAG_USEGETSERVICE = settings():GetFFlag("UseClassNameGetService")
 	self.FLAG_DELAYLOADING = settings():GetFFlag("UseDelayedLoading")
+	self.FLAG_USECAS = settings():GetFFlag("AllowCASConnectionsAndDatabaseConnections")
+	self.FLAG_USEPROXY = settings():GetFFlag("EnableCASProxy")
 	self.SERVICES = {}
-	self.CASServicesList = {
-		"BadgeService"
-	}
+	self.CASServicesList = {}
+
+	for name, _ in pairs(structureReference) do
+		table.insert(self.CASServicesList, name)
+	end
+	self:InitServices()
+	
+	return self
+end
+
+function DataModel:InitServices()
 	for _, module in ipairs(Services:GetChildren()) do
 		self.SERVICES[module.Name] = require(module).new()
 		self[module.Name] = self.SERVICES[module.Name]
 		table.insert(self.Children, self.SERVICES[module.Name])
 	end
 
-	-- TODO: make this nicer like the comments say so below
-	if settings():GetFFlag("AllowCASConnectionsAndDatabaseConnections") and settings():GetFFlag("EnableCASProxy") and RunService:IsClient() then -- CAS support baked into this!
+	-- TODO: make this nicer
+	if self.FLAG_USECAS and self.FLAG_USEPROXY and RunService:IsClient() then -- client CAS support
 		repeat
 			task.wait()
-		until script.Parent.Parent.ProxyEvents:GetAttribute("CASInit") == true -- shitty code, fix this later
+		until ProxyEvents:GetAttribute("CASInit") == true
+
 		for _, serviceName in pairs(self.CASServicesList) do
+			if not ProxyEvents:FindFirstChild(serviceName) then -- the user doesn't have to add all services
+				continue
+			end
+
 			local newService = Proxy.new(serviceName)
 			local structure = structureReference[serviceName]
 			for _, method in pairs(structure.Methods) do
@@ -121,23 +73,19 @@ function DataModel.new()
 			
 			self.SERVICES[serviceName] = newService
 			self[serviceName] = newService
+			table.insert(self.Children, newService)
 		end
 	end
-	
-	if self.FLAG_DELAYLOADING then -- TODO: remove this
-		self.Loaded = RBXScriptSignal.new()
-		
-		task.spawn(function()
-			if game:IsLoaded() then
-				task.wait(5)
-				self.Loaded:Fire()
-			end
-		end)
-	else
-		self.FinishedScript = RBXScriptSignal.new()
+
+	if self.FLAG_USECAS and RunService:IsServer() then -- server runtime
+		local ClientAdapterService = self:GetService("ClientAdapterService")
+		for _, serviceName in pairs(self.CASServicesList) do
+			local newService = ClientAdapterService:GetService(serviceName)
+			self.SERVICES[serviceName] = newService
+			self[serviceName] = newService
+			table.insert(self.Children, newService)
+		end
 	end
-	
-	return self
 end
 
 function DataModel:GetAdmins()
