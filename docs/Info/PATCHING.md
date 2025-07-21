@@ -34,7 +34,7 @@ Here are some listed periods (checkmark means it fully works):
 - [x] 2013L (7C)
 - [x] 2013M (7C)
 - [x] 2013E (7C)
-- [ ] 2012L (7B)
+- [x] 2012L (7B)
 - [ ] 2012M (7A)
 - [ ] 2012E (3B)
 - [ ] 2011L (3B)

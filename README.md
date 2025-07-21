@@ -1,8 +1,8 @@
 # aurora-core
 > [!WARNING]
-> This current version of aurora-core is incomplete, expect bugs and improper documentation.
+> This version of aurora-core is incomplete, expect bugs and improper documentation.
 
-![license: mit](https://img.shields.io/badge/license-mit-orange?style=flat)![version: v2025.0711](https://img.shields.io/badge/version-v2025.0711-blue?style=flat)
+![license: mit](https://img.shields.io/badge/license-mit-orange?style=flat)![version: v2025.0721](https://img.shields.io/badge/version-v2025.0721-blue?style=flat)
 <br>
 A incomplete barebones framework for replicating legacy CoreScripts and stamper tools on normal ROBLOX games.
 
@@ -44,7 +44,6 @@ For more info view [InsertService.md](/docs/Utils/InsertService.md).
     - [x] UserInputService
     - [ ] Players
     - [ ] GuiService
-    - [ ] LogService
 - [ ] DataTypes
     - [x] Enum
     - [x] GlobalSettings
@@ -58,7 +57,7 @@ For more info view [InsertService.md](/docs/Utils/InsertService.md).
 - [ ] Supported RobloxGui Types
     - [x] 7D
     - [x] 7C
-    - [ ] 7B
+    - [x] 7B
     - [ ] 7A
 - [x] Networking
     - [x] Proxy
@@ -68,7 +67,9 @@ For more info view [InsertService.md](/docs/Utils/InsertService.md).
     - [x] Inheritance.luau
     - [x] Proxy.luau
     - [x] ProxyServer.luau
+    - [x] TableFind.luau
     - [x] xml2lua
+    - [ ] StrictStructure.luau
     - [ ] DataPersistence.luau
 - [ ] Tests
     - [x] CAS Client

@@ -28,7 +28,9 @@
 
     "StarterPlayer": {
       "StarterPlayerScripts": {
-        "$path": "src/tests/client"
+        "Tests": {
+          "$path": "src/tests/client"
+        }
       }
     },
 

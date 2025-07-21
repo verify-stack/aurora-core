@@ -5,9 +5,10 @@
 -- preheaders for stuff
 wait()
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local AuroraCore = ReplicatedStorage:WaitForChild("AuroraCore")
-local EnvInject = require(AuroraCore.EnvInject)
+local AuroraCore = ReplicatedStorage.AuroraCore
+
 local EnvConfig = require(AuroraCore.EnvConfig)
+local EnvInject = require(AuroraCore.EnvInject)
 local ExportJSONFlags = require(AuroraCore.Utils.ExportJSONFlags)
 
 function _G:Inject(fenv)
@@ -15,11 +16,15 @@ function _G:Inject(fenv)
 end
 
 function _G:ExportJSON()
-	ExportJSONFlags(EnvConfig.FFlags, EnvConfig.ExportJSON)
+    ExportJSONFlags(EnvConfig.FFlags, EnvConfig.ExportJSON)
 end
 
--- loads the starterscript and stuff
+-- do this after so we can use settings()
 _G:Inject(getfenv())
+_G.CASEnabled = settings():GetFFlag("AllowCASConnectionsAndDatabaseConnections")
+_G.InsertServiceEnabled = settings():GetFFlag("EnableInsertServiceSupport")
+
+-- loads the starterscript and stuff
 _G:ExportJSON()
 
 local Players = game:GetService("Players")
@@ -32,7 +37,7 @@ local safeLocalAdd = function(name, parent)
 	local success, message = pcall(function()  
 		ScriptContext:AddCoreScriptLocal(name, parent)
 	end)
-	assert(success, message) -- while it'll error, it won't stop the flow
+	task.spawn(assert, success, message) -- while it'll error, it won't stop the flow
 end
 local onPlayerChatted = function(_, player, message)
 	Chat:Chat(player.Character, message, Enum.ChatColor.White)

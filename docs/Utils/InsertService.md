@@ -1,4 +1,4 @@
-# InsertService /Assets
+# InsertService/Assets
 > [!CAUTION]
 > Enabling InsertService allows hackers to insert anything they want. Use with caution.
 
@@ -15,4 +15,4 @@ If you're concerned about safety, you can easily disable InsertService by just s
 
 Or if you want to, disable `AllowCASConnectionsAndDatabaseConnections`.
 
-[Back <-](/docs/Utils/CAS.md)
+[Back <-](/docs/Utils/CASToolkit.md)

@@ -1,6 +1,6 @@
 -- DataModel instance aka game
 -- by mike
--- v2025.0711
+-- v2025.0716
 
 local RunService = game:GetService("RunService")
 
@@ -16,6 +16,7 @@ local Services = AuroraCore:WaitForChild("Services")
 local ProxyEvents = AuroraCore:WaitForChild("ProxyEvents")
 
 local structureReference = require("../Utils/StrictStructure")
+local extensionModuleSuccess, extensionModuleFlagValue = pcall(function() return settings():GetFFlag("ExtensionModules") end)
 
 local DataModel = setmetatable({}, InstanceRoot)
 DataModel.__index = DataModel
@@ -24,14 +25,20 @@ function DataModel.new()
 	local self = setmetatable(InstanceRoot.new(game), DataModel)
 	self.MESSAGE_VAILDSERVICE = "'%s' is not a valid Service name"
 	self.FLAG_USEGETSERVICE = settings():GetFFlag("UseClassNameGetService")
-	self.FLAG_DELAYLOADING = settings():GetFFlag("UseDelayedLoading")
 	self.FLAG_USECAS = settings():GetFFlag("AllowCASConnectionsAndDatabaseConnections")
 	self.FLAG_USEPROXY = settings():GetFFlag("EnableCASProxy")
+	self.ExtensionModules = if extensionModuleSuccess and type(extensionModuleFlagValue) == "table" then extensionModuleFlagValue else false
+
 	self.SERVICES = {}
 	self.CASServicesList = {}
 
 	for name, _ in pairs(structureReference) do
 		table.insert(self.CASServicesList, name)
+	end
+	if self.ExtensionModules and self.ExtensionModules.TeleportModule then
+		self.TeleportModule = require(self.ExtensionModules.TeleportModule)
+	else
+		self.TeleportModule = "nil"
 	end
 	self:InitServices()
 	
@@ -47,10 +54,6 @@ function DataModel:InitServices()
 
 	-- TODO: make this nicer
 	if self.FLAG_USECAS and self.FLAG_USEPROXY and RunService:IsClient() then -- client CAS support
-		repeat
-			task.wait()
-		until ProxyEvents:GetAttribute("CASInit") == true
-
 		for _, serviceName in pairs(self.CASServicesList) do
 			if not ProxyEvents:FindFirstChild(serviceName) then -- the user doesn't have to add all services
 				continue
@@ -126,8 +129,12 @@ function DataModel:SetVerb(guiObject, verbString)
 	
 	local verbList = {
 		["Exit"] = function()
-			-- TODO: add more things here
-			self:GetService("TeleportService"):Teleport(1)
+			if self.TeleportModule ~= "nil" then
+				self.TeleportModule()
+			end
+
+			warn("TeleportModule was not added.")
+			self:GetService("TeleportService"):Teleport(1818) -- teleport to crossroads lol
 		end,
 	}
 	

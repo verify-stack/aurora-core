@@ -69,6 +69,14 @@ local MyServiceStructure = {
 }
 local MyService = {}
 
+function MyService:init(CAS)
+    -- if you want to use CAS to init variables, you can do it here
+    -- if not, an empty function is required or else it'll error
+    self.BadgeVersion = 0
+    -- self.BadgeAwarded = CAS:createsignal() [creates a signal]
+    -- self.BadgeInstance = CAS:sendinstance(Instance.new("Part")) [creates an instance and sends it through]
+end
+
 function MyService:CheckIfUserIDHasBadge(CAS, value)
     print("hello CAS!")
     CAS.logger:logprint("hello CAS on logger!")
@@ -88,4 +96,4 @@ return { -- just send over the data
 
 It's that simple, no OOP non-sense.
 
-[Back <-](/docs/README.md) || [Next ->](/docs/Utils/InsertService.md)
+[Back <-](/docs/README.md) || [Next ->](/docs/Utils/CASToolkit.md)

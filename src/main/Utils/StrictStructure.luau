@@ -1,6 +1,6 @@
 -- shared structures of CAS services
 -- by mike
--- v2025.0711
+-- v2025.0715
 
 return {
     ["BadgeService"] = {
@@ -82,7 +82,21 @@ return {
 
 		Variables = {
 			"MessageOut",
-			"ServerMessageOut",
+			"ServerMessageOut"
+		}
+	},
+
+	-- custom service
+	["RBXChatService"] = {
+		Methods = {
+			"UpdateTextChannel",
+			"SetDialogEnabled",
+			"SignalDialog",
+		},
+
+		Variables = {
+			"GeneralChannel",
+			"DialogChoiceChosen"
 		}
 	}
 }

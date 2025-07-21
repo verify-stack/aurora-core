@@ -18,4 +18,5 @@ You can also use this as a learning resource for CoreScripts.
     * [CoreGui](/docs/Services/CoreGui.md)
 * /Utils/
     * [Client Adapter Service](/docs/Utils/CAS.md)
+    * [Client Adapter Service Toolkit](/docs/Utils/CASToolkit.md)
     * [InsertService](/docs/Utils/InsertService.md)

@@ -53,6 +53,7 @@ local RBXScriptSignal = require("../DataTypes/RBXScriptSignal")
 local Proxy = require(AuroraCore.Utils.ProxyServer)
 
 local structureReference = require("../Utils/StrictStructure")
+local tableFind = require("../Utils/TableFind")
 
 local CASLogger = {}
 CASLogger.__index = CASLogger
@@ -136,6 +137,10 @@ function CASToolkit.new(isClient)
 	return self
 end
 
+function CASToolkit:createsignal()
+    return RBXScriptSignal.new()
+end
+
 function CASToolkit:sendnil()
     -- might do something useful here
     return
@@ -163,6 +168,14 @@ function ClientAdapterService.new()
 	return self
 end
 
+function ClientAdapterService:_GetRootService(className)
+    local success, service = pcall(function()
+        return game:GetService(className)
+    end)
+
+    return success and service or nil
+end
+
 function ClientAdapterService:_CreateRigidService(structure, module)
     -- another version of strict checking, but it requires less setup
     local strictStructure = structureReference[structure.ClassName]
@@ -176,12 +189,13 @@ function ClientAdapterService:_CreateRigidService(structure, module)
         local self = setmetatable(InstanceRoot.new(), ClientAdapterService)
 	    self.ClassName = structure.ClassName
         self.CASToolkit = CASToolkit.new()
+        module:init(self.CASToolkit) -- initialize the variables
         if createProxy then
             self.CASProxy = Proxy.new(structure.ClassName)
         end
 
         for _, name in pairs(variables) do 
-            assert(module[name], "Variable " .. name .. ", doesn't exist in the class.")
+            assert(tableFind(module, name), "Variable " .. name .. ", doesn't exist in the class.")
             self[name] = module[name]
             if createProxy then -- TODO: fix this shitty code
                 if getmetatable(module[name]) == RBXScriptSignal then
@@ -192,7 +206,7 @@ function ClientAdapterService:_CreateRigidService(structure, module)
             end
         end
         for _, name in pairs(methods) do
-            assert(module[name], "Method " .. name .. ", doesn't exist in the class.")
+            assert(tableFind(module, name), "Method " .. name .. ", doesn't exist in the class.")
             self[name] = function(self, ...)
                 return module[name](module, self.CASToolkit, ...) -- the first arg is just self
             end
@@ -206,7 +220,12 @@ function ClientAdapterService:_CreateRigidService(structure, module)
 	    return self
     end
 
-    return Inheritance.new(game:GetService(structure.ClassName), service)
+    local serviceRoot = self:_GetRootService(structure.ClassName)
+    if not serviceRoot then
+        return service
+    end
+
+    return Inheritance.new(serviceRoot, service)
 end
 
 function ClientAdapterService:_CreateFlexableService(structure, module)
@@ -223,6 +242,7 @@ function ClientAdapterService:_CreateFlexableService(structure, module)
         local self = setmetatable(InstanceRoot.new(), ClientAdapterService)
 	    self.ClassName = structure.ClassName
         self.CASToolkit = CASToolkit.new()
+        module:init(self.CASToolkit) -- initialize the variables
         if createProxy then
             self.CASProxy = Proxy.new(structure.ClassName)
         end
@@ -265,8 +285,12 @@ function ClientAdapterService:_CreateFlexableService(structure, module)
 
 	    return self
     end
+    local serviceRoot = self:_GetRootService(structure.ClassName)
+    if not serviceRoot then
+        return service
+    end
 
-    return Inheritance.new(game:GetService(structure.ClassName), service)
+    return Inheritance.new(serviceRoot, service)
 end
 
 function ClientAdapterService:CreateService(name)
@@ -291,12 +315,15 @@ function ClientAdapterService:GetService(name)
     local newService = self.serviceCache[name]
     if not newService then
         self.serviceCache[name] = self:CreateService(name)
-        newService = self.serviceCache[name]
+
+        if self.serviceCache[name] then
+            self.serviceCache[name] = self.serviceCache[name].new()
+            newService = self.serviceCache[name]
+        end
     end
     if not newService then
         return
     end
-    newService = newService.new()
 
     return newService
 end

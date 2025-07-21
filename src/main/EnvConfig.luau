@@ -1,12 +1,12 @@
 -- config for AuroraCore
 -- by mike
--- v2025.0711
+-- v2025.0721
 
 local EnvConfig = {}
 
 -- AuroraCore generic strings
 -- these aren't really important
-EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0711 ROJO) (LUAU FENV)"
+EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0721 ROJO) (LUAU FENV)"
 
 -- AuroraCore settings
 -- FFlags are pretty much settings for how the client should work
@@ -16,12 +16,11 @@ EnvConfig.FFlags = {
 	UseClassNameGetService = false, -- breaks get service
 	EnableInsertServiceSupport = true,
 	DisableRobloxCoreGui = true,
-	UseDelayedLoading = false, -- no longer works, don't turn the flag on
 	EnableCASProxy = true, -- enables clients being able to access CAS services
 	AllowCASConnectionsAndDatabaseConnections = true,
 	ExtensionModules = false, -- read more at /docs/Info/Extensions.md
 
-	-- real roblox fflags
+	-- real roblox fflags (remove this, they mess with the corescripts)
 	NewPlayerListScript = true,
 	NewMenuSettingsScript = false,
 	ConsoleCodeExecutionEnabled = true,
@@ -40,7 +39,7 @@ else
 		["moneyxmike"] = "http://www.roblox.com/asset/?id=105897927" -- remember to make the names all lowercase
 	}
 end
-EnvConfig.ExportJSON = [[{"FFlagReconstructAssetUrl": "True"}]] -- place your fflag json file here
+EnvConfig.ExportJSON = [[{}]] -- place your json fflags file here
 EnvConfig.ClientPeriod = "2015E" -- change this to your client period
 
 -- CoreGui related things

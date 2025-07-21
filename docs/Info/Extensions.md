@@ -23,9 +23,10 @@ end)
 > You will have to implement the function into your camera module.
 > Possible images can be accessed via `GuiService:GetMouseLockInfo()`.
 
-If you're using 2014L and below or using mobile, you'll have to create a custom camera module if you want it working.
-
+If you're using mobile, you'll have to create a custom camera module if you want it working.
 Optionally, you just can use the default camera module and hookup `RotateCamera` and `ZoomCamera`.
+
+For 2012L and below (7B and below), you'll have to handle the camera view buttons by yourself, the images are already handled though.
 
 ```Lua
 CameraModule.new(name) -- Creates a new camera, name is for the runtime bind.
@@ -41,6 +42,24 @@ end
 function UserInputService:RotateCamera(rotateVector)
     CameraModule:RotateCamera(rotateVector)
 end
+```
+
+## TeleportModule
+If you want to make your player teleport back to your own game, you can create your own teleport module.
+
+```Lua
+-- only public API
+TeleportModule() -- Calls the teleport function, what else do you think it calls? 
+
+-- Connections (do not add, shows where the function gets called)
+["Exit"] = function()
+	if self.TeleportModule ~= "nil" then
+		self.TeleportModule()
+	end
+
+	warn("TeleportModule was not added.")
+	self:GetService("TeleportService"):Teleport(1818) -- teleport to crossroads lol
+end,
 ```
 
 [Back <-](/docs/Info/ROJO.md)

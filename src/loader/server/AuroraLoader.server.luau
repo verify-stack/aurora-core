@@ -1,29 +1,36 @@
 -- loads AuroraCore
 -- by mike
--- v2025.0711
+-- v2025.0716
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local ServerStorage = game:GetService("ServerStorage")
 local AuroraCore = ReplicatedStorage.AuroraCore
-local AuroraCoreServer = ServerStorage.AuroraCore
-local Game = require(AuroraCore.Game)
-local settings = require(AuroraCore.Settings)
+
 local EnvConfig = require(AuroraCore.EnvConfig)
+local EnvInject = require(AuroraCore.EnvInject)
 local ExportJSONFlags = require(AuroraCore.Utils.ExportJSONFlags)
 
-AuroraCore.ProxyEvents:SetAttribute("CASInit", false)
-ExportJSONFlags(EnvConfig.FFlags, EnvConfig.ExportJSON)
-if settings():GetFFlag("EnableInsertServiceSupport") then
-    local InsertService = Game:GetService("InsertService")
+function _G:Inject(fenv)
+	EnvInject(fenv)
+end
+
+function _G:ExportJSON()
+    ExportJSONFlags(EnvConfig.FFlags, EnvConfig.ExportJSON)
+end
+
+-- do this after so we can use settings()
+_G:Inject(getfenv())
+_G.CASEnabled = settings():GetFFlag("AllowCASConnectionsAndDatabaseConnections")
+_G.InsertServiceEnabled = settings():GetFFlag("EnableInsertServiceSupport")
+
+-- main script
+_G:ExportJSON()
+
+if _G.InsertServiceEnabled and _G.CASEnabled then
+    local InsertService = game:GetService("InsertService")
     InsertService:ApproveAssetId(1) -- filler function
 end
-
--- this is here for anyone who wants to package this
-local RBXChatService = Game:GetService("RBXChatService")
-RBXChatService:UpdateTextChannel()
-
-local ClientAdapterService = Game:GetService("ClientAdapterService") -- TODO: move this to datamodel
-for _, module in pairs(AuroraCoreServer.CAS:GetChildren()) do
-    ClientAdapterService:GetService(module.Name)
+if _G.CASEnabled then
+    -- only works in CAS now
+    local RBXChatService = game:GetService("RBXChatService")
+    RBXChatService:UpdateTextChannel()
 end
-AuroraCore.ProxyEvents:SetAttribute("CASInit", true)
