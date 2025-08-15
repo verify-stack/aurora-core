@@ -2,7 +2,7 @@
 > [!WARNING]
 > This version of aurora-core is incomplete, expect bugs and improper documentation.
 
-![license: mit](https://img.shields.io/badge/license-mit-orange?style=flat)![version: v2025.0721](https://img.shields.io/badge/version-v2025.0721-blue?style=flat)
+![license: mit](https://img.shields.io/badge/license-mit-orange?style=flat)![version: v2025.0815](https://img.shields.io/badge/version-v2025.0815-blue?style=flat)
 <br>
 A incomplete barebones framework for replicating legacy CoreScripts and stamper tools on normal ROBLOX games.
 

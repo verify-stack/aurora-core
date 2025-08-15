@@ -1,9 +1,10 @@
 -- very important service for corescripts
 -- by mike
--- v2025.0618
+-- v2025.0815
 
 local GuiServiceRoot = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
 local InstanceRoot = require("../DataTypes/Instance")
 local RBXScriptSignal = require("../DataTypes/RBXScriptSignal")
 local Inheritance = require("../Utils/Inheritance")
@@ -16,6 +17,7 @@ function GuiService.new()
 	local self = setmetatable(InstanceRoot.new(GuiServiceRoot), GuiService)
 	self.ClassName = "GuiService"
 	self.MouseLockInfo = false
+	self.UseLuaChat = true
 
 	self.ErrorMessageChanged = RBXScriptSignal.new()
 	self.UiMessageChanged = RBXScriptSignal.new()
@@ -24,6 +26,7 @@ function GuiService.new()
 	self.KeyPressed = RBXScriptSignal.new()
 	self.SpecialKeyPressed = RBXScriptSignal.new()
 	
+	self._paddingConnection = nilReplace
 	self._dialogWrapperMap = {}
 	self._currentDialog = nilReplace
 	self._dialogQueue = {}
@@ -133,18 +136,28 @@ function GuiService:GetErrorMessage()
 end
 
 function GuiService:SetGlobalGuiInset(xo, xs, yo, ys)
+	local localPlayer = Players.LocalPlayer
+	local playerGui = localPlayer:WaitForChild("PlayerGui")
 	local UIPadding = Instance.new("UIPadding")
 	UIPadding.PaddingRight = UDim.new(xo, xs)
 	UIPadding.PaddingBottom = UDim.new(yo, ys)
-	
-	-- TODO: fix this code being not nice
-	for _, gui in pairs(game:GetService("Players").LocalPlayer.PlayerGui:GetChildren()) do -- lazy way lol
+	if self._paddingConnection then
+		self._paddingConnection:Disconnect()
+		self._paddingConnection = nilReplace
+	end
+
+	for _, gui in pairs(playerGui:GetChildren()) do
 		if not gui:IsA("ScreenGui") then
 			continue
 		end
 		UIPadding:Clone().Parent = gui
 	end
-	UIPadding:Destroy()
+	self._paddingConnection = playerGui.ChildAdded:Connect(function(child)
+		if not child:IsA("ScreenGui") then
+			return
+		end
+		UIPadding:Clone().Parent = child
+	end)
 end
 
 function GuiService:GetMouseLockInfo()

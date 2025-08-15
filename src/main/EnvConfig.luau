@@ -1,12 +1,12 @@
 -- config for AuroraCore
 -- by mike
--- v2025.0721
+-- v2025.0815
 
 local EnvConfig = {}
 
 -- AuroraCore generic strings
 -- these aren't really important
-EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0721 ROJO) (LUAU FENV)"
+EnvConfig.AuroraVersion = "Luau (AuroraCore v2025.0815 ROJO) (LUAU FENV)"
 
 -- AuroraCore settings
 -- FFlags are pretty much settings for how the client should work

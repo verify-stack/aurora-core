@@ -21,12 +21,11 @@ end
 
 -- do this after so we can use settings()
 _G:Inject(getfenv())
+_G:ExportJSON()
 _G.CASEnabled = settings():GetFFlag("AllowCASConnectionsAndDatabaseConnections")
 _G.InsertServiceEnabled = settings():GetFFlag("EnableInsertServiceSupport")
 
 -- loads the starterscript and stuff
-_G:ExportJSON()
-
 local Players = game:GetService("Players")
 local ScriptContext = game:GetService("ScriptContext")
 local Chat = game:GetService("Chat")

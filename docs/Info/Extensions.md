@@ -1,8 +1,13 @@
 # Extensions
 > [!NOTE]
-> aurora-core does not provide extensions, you'll have to create them yourselfs and stick to the API provided (unlike CAS).
+> aurora-core does not provide extensions, you'll have to create them yourself and stick to the API provided (unlike CAS).
 
-Since ROBLOX loved to hardcode their API to services, aurora-core has the option to link in modules following a rigid stucture.
+Since ROBLOX loved to hardcode their API to services, aurora-core has the option to link in modules following a rigid structure.
+
+## Adding Extensions
+Go to `EnvConfig.luau` and head to `FFlags.ExtensionModules`. Replace `false` with an table, this will contain your extensions.
+
+For each extension, you should list the **real name** of you extension (e.g TeleportModule) and then the path to your extension (make sure to not require or else it will break).
 
 ## ChatBubbles
 While custom chat bubbles are not required (since TextChatService exists), there is an option to use custom bubbles.

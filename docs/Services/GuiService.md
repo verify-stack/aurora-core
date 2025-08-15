@@ -65,6 +65,8 @@ GuiService:GetMouseLockInfo() --[[
 		}
 	}
 ]]
+
+GuiService.UseLuaChat -- Returns true, name speaks for itself.
 ```
 
 [Back <-](/docs/README.md) || [Next ->](/docs/Services/CoreGui.md)

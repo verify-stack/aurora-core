@@ -28,7 +28,7 @@ View an example: [client](/src/main/Services/InsertService.luau), [server](/src/
 
 #### Problems
 While this works great, there are major problems.
-* A script must call the service inorder for it to work.
+* A script must call the service in order for it to work.
 * Can be messy to deal with.
 * No auto-complete.
 * Hackers can easily take abuse of this system.
